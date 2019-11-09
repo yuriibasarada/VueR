@@ -53,7 +53,7 @@
       </div>
       <p>
         <label>
-          <input type="checkbox" v-model="agree"/>
+          <input type="checkbox" v-model="agree" />
           <span>С правилами согласен</span>
         </label>
       </p>
@@ -93,7 +93,7 @@ export default {
     agree: { cheked: v => v }
   },
   methods: {
-    submitHandler() {
+    async submitHandler() {
       if (this.$v.$invalid) {
         this.$v.$touch();
         return;
@@ -103,9 +103,11 @@ export default {
         email: this.email,
         password: this.password,
         name: this.name
-      }
-
-      this.$router.push('/')
+      };
+      try {
+        await this.$store.dispatch("register", formData);
+        this.$router.push("/");
+      } catch (e) {}
     }
   }
 };
