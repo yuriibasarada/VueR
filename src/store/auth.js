@@ -1,12 +1,12 @@
 import axios from 'axios';
+axios.defaults.headers['Content-Type'] = 'application/json';
 
 export default {
   actions: {
     async login({ dispatch, commit }, { email, password }) {
       await axios
         .post('http://localhost:8000/auth/signin',
-          { email, password },
-          { headers: { 'Content-Type': 'application/json' } })
+          { email, password })
         .then(function (response) {
           commit('setToken', response.data.token)
         })
@@ -18,8 +18,7 @@ export default {
     async register ({ dispatch, commit }, { email, password, name }) {
       await axios
         .post('http://localhost:8000/auth/signup',
-          { email, password, name },
-          { headers: { 'Content-Type': 'application/json' } })
+          { email, password, name })
         .then(function (response) {
           commit('setToken', response.data.token)
         })
@@ -33,12 +32,12 @@ export default {
       let token = localStorage.token 
      return await axios
       .post('http://localhost:8000/auth/getid',
-        { token },
-        { headers: { 'Content-Type': 'application/json' } })
+        { token })
       .then(function (response) {
         return response.data.id
       })
       .catch(function (e) {
+        commit('clearToken')
         commit('setError', e.response)
         throw e
       }) 
@@ -46,7 +45,7 @@ export default {
   
 
     async logout({commit, dispatch}) {
-      await commit('clearToken')
+      commit('clearToken')
       commit('clearInfo')
     }
 

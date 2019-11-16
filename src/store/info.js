@@ -1,4 +1,5 @@
 import axios from 'axios';
+axios.defaults.headers['Content-Type'] = 'application/json';
 
 export default {
   state: {
@@ -17,8 +18,7 @@ export default {
       try {
         const uid = await dispatch('getUid')
         const info = await axios.get(
-          `http://localhost:8000/auth/getinfo/${uid}`,
-          { headers: { 'Content-Type': 'application/json' } })
+          `http://localhost:8000/auth/getinfo/${uid}`)
           .then(
             function(response) {
               return response.data
@@ -26,11 +26,19 @@ export default {
           )
           commit('setInfo', info)
         } catch (e) {
-
       }
-
-
-    }
+    },
+    async updateInfo({ commit, dispatch, getters }, toUpdate) {
+      const uid = await dispatch('getUid')
+      const updateData = {...getters.info, ...toUpdate}
+      await axios.put(`http://localhost:8000/info/${uid}`, updateData
+      ).then(function (response) {
+        commit('setInfo', updateData)
+      }).catch(function (e) {
+        commit('setError', e)
+        throw e
+      })
+    },
   },
   getters: {
     info: s => s.info
