@@ -6,7 +6,7 @@
 
 <script>
 import messages from '@/utils/messages'
-
+import localizeFilter from '@/filters/localize.filter'
 export default {
   computed: {
     error() {
@@ -15,7 +15,7 @@ export default {
   },
   watch: {
     error(ServerError) {
-      this.$error(messages[ServerError] || 'Что-то пошло не так')
+      this.$error(messages[ServerError] || localizeFilter('SomethingWentWrong'))
     }
   }
 }

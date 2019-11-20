@@ -1,12 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import axios from 'axios'
-import record from '../store/record';
-axios.defaults.headers['Content-Type'] = 'application/json';
+axios.defaults.headers['Content-Type'] = 'application/json'
 Vue.use(VueRouter)
 
 const routes = [
-
   {
     path: '/login',
     name: 'login',
@@ -61,7 +59,6 @@ const routes = [
     meta: { layout: 'main', auth: true },
     component: () => import('../views/Record.vue')
   }
-
 ]
 
 const router = new VueRouter({
@@ -72,7 +69,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const requireAuth = to.matched.some(record => record.meta.auth)
 
-  if(requireAuth && !localStorage.token) {
+  if (requireAuth && !localStorage.token) {
     next('/login?message=login')
   } else {
     next()

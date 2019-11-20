@@ -1,20 +1,20 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Категории</h3>
+      <h3>{{ 'Categories' | localize }}</h3>
     </div>
     <section>
-      <Loader v-if="loading"/>
+      <Loader v-if="loading" />
       <div class="row" v-else>
         <Create @created="addNewCategory" />
 
-        <Edit 
-        v-if="categories.length"
-        :categories="categories"
-        :key="categories.lenth + updateCount"
-        @updated='updateCategories'
+        <Edit
+          v-if="categories.length"
+          :categories="categories"
+          :key="categories.lenth + updateCount"
+          @updated="updateCategories"
         />
-        <p v-else class="center">Категорий пока нет</p>
+        <p v-else class="center">{{ 'NotFoundCategory' }}</p>
       </div>
     </section>
   </div>
@@ -25,6 +25,11 @@ import Create from '@/components/category/Create'
 import Edit from '@/components/category/Edit'
 export default {
   name: 'categories',
+  metaInfo() {
+    return {
+      title: this.$title('Categories')
+    }
+  },
   data: () => ({
     categories: [],
     loading: true,
@@ -35,7 +40,8 @@ export default {
     this.loading = false
   },
   components: {
-    Create, Edit
+    Create,
+    Edit
   },
   methods: {
     addNewCategory(category) {

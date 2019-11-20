@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Счет</h3>
+      <h3>{{ 'Bill' | localize }}</h3>
 
       <button class="btn waves-effect waves-light btn-small" @click="refresh">
         <i class="material-icons">refresh</i>
@@ -24,6 +24,11 @@ import Currency from '@/components/home/Currency'
 
 export default {
   name: 'home',
+  metaInfo() {
+    return {
+      title: this.$title('Bill')
+    }
+  },
   data: () => ({
     loading: true,
     currency: null
@@ -40,7 +45,8 @@ export default {
     }
   },
   components: {
-    Bill, Currency
+    Bill,
+    Currency
   }
 }
 </script>
