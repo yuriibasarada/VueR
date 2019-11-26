@@ -66,5 +66,6 @@
   "IAgreeWithTheRules": "Я согласен с правилами",
   "AlreadyHaveAnAccount?": "Уже есть аккаунт?",
   "SomethingWentWrong": "Что-то пошло не так",
-  "CreateNewRecord": "Создать новую запись"
+  "CreateNewRecord": "Создать новую запись",
+  "ExchangeRates": "Курс валют"
 }
